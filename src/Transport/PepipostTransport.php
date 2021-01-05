@@ -9,6 +9,7 @@ use Swift_Attachment;
 use Swift_Image;
 use Swift_Mime_SimpleMessage;
 use Swift_MimePart;
+use Illuminate\Support\Arr;
 
 class PepipostTransport extends Transport
 {
@@ -255,10 +256,10 @@ class PepipostTransport extends Transport
                     $this->setSettings($data, $val);
                     continue 2;
 		case 'tags':
-		    array_set($data,'tags',$val);
+		    Arr::set($data,'tags',$val);
 		    continue 2;
 		case 'templateId':
-		    array_set($data,'templateId',$val);
+		    Arr::set($data,'templateId',$val);
 		    continue 2;	
                 case 'personalizations':		     
                     $this->setPersonalizations($data, $val);
@@ -270,7 +271,7 @@ class PepipostTransport extends Transport
                     }
                    
 
-           array_set($data, $key, $val);
+           Arr::set($data, $key, $val);
         }
         return $data;
     }
@@ -282,7 +283,7 @@ class PepipostTransport extends Transport
 	    	
 	    if($this->numberOfRecipients <= 0)
 	    {
-		array_set($data,'personalizations'.'.'.$index  , $params);
+		Arr::set($data,'personalizations'.'.'.$index  , $params);
 		continue;
 	    } 
 	    $count=0;
@@ -301,7 +302,7 @@ class PepipostTransport extends Transport
     private function setSettings(&$data, $settings)
     {
         foreach ($settings as $index => $params) {
-        	array_set($data,'settings.'.$index,$params);   
+        	Arr::set($data,'settings.'.$index,$params);   
 	}
     }
 
